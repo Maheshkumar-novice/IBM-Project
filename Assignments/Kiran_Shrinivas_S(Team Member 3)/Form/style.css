@@ -53,3 +53,20 @@ body {
     
 }
 
+#form > div{
+    width: 400px;
+
+}
+
+#form div input{
+    width: 400px;
+    height: 40px;
+    color: var(--color-lightblue);
+    border: none;
+    border-bottom: 2px solid gray;
+    border-radius: 10px;
+    outline: none;
+    font-size:medium;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
