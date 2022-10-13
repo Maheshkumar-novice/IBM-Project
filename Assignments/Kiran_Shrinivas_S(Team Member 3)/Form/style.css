@@ -70,3 +70,14 @@ body {
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.form-group{
+    width: 100%;
+    
+}
+
+.name-group{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+ 
