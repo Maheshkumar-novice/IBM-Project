@@ -10,11 +10,9 @@ def create_app():
     app.config.from_object(CONFIG_OBJECT_NAME)
     db.init_app(app)
 
-    from application.auth.routes import auth_blueprint
-
-    app.register_blueprint(auth_blueprint, url_prefix=app.config['API_VERSION_PREFIX'])
-
     with app.app_context():
+        from application.auth.routes import auth_blueprint
+        app.register_blueprint(auth_blueprint, url_prefix=f'{app.config["API_VERSION_PREFIX"]}/auth')
         db.create_all()
 
     return app
