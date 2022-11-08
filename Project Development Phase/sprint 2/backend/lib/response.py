@@ -1,20 +1,24 @@
 from flask import jsonify
+from lib.response_status_codes import *
 
 
 class Response():
     @staticmethod
-    def success(data):
+    def success(data={}, message='', status_code=REQUEST_COMPLETED):
         response = {
             'status': 'success',
-            'data': data
+            'status_code': status_code,
+            'data': data,
+            'message': message
         }
-        return jsonify(response), 200
+        return jsonify(response), status_code
 
     @staticmethod
-    def error(data, error_code):
+    def error(data={}, message='', status_code=INTERNAL_SERVER_ERROR):
         response = {
             'status': 'error',
-            'code': error_code,
-            'data': data
+            'status_code': status_code,
+            'data': data,
+            'message': message
         }
-        return jsonify(response), error_code
+        return jsonify(response), status_code

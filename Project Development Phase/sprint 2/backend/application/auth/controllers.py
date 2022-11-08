@@ -1,10 +1,12 @@
 from application import db
 from application.auth.forms import RegistrationForm, LoginForm, ResendConfirmationMailForm
 from application.auth.models import Retailer
+from application.auth.constants import *
 from lib.response import Response
+from lib.response_status_codes import *
 from lib.mailer import send_confirmation_email
 from datetime import datetime
-
+from flask_jwt_extended import create_access_token
 
 def register():
     form = RegistrationForm()
@@ -29,11 +31,15 @@ def login():
     if form.validate():
         retailer = Retailer.query.filter_by(email=form.email.data).first()
         if retailer is None or (not retailer.check_password(form.password.data)):
-            return Response.error(data='login error', error_code=500)
+            return Response.error(data={}, message=INVALID_DATA, status_code=UNAUTHORIZED_ACCESS)
 
-        return Response.success(data='login success')
+        access_token = create_access_token(retailer.id)
+        response_data = {
+            'jwt_token': access_token
+        }
+        return Response.success(data=response_data, message=LOGIN_SUCCESSFUL, status_code=REQUEST_COMPLETED)
 
-    return Response.error(data=form.errors, error_code=500)
+    return Response.error(data=form.errors, message=INVALID_DATA, status_code=UNAUTHORIZED_ACCESS)
 
 
 def confirm_email(token):
