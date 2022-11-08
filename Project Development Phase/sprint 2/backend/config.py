@@ -5,7 +5,7 @@ import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-CONFIG_OBJECT_NAME = os.getenv('CONFIG_OBJECT_NAME', 'config.DevelopmentConfig')
+APP_SETTINGS = os.getenv('APP_SETTINGS', 'config.DevelopmentConfig')
 
 class Config():
     EMAIL_CONFIRMATION_SENDER_EMAIL =os.getenv('EMAIL_CONFIRMATION_SENDER_EMAIL')
