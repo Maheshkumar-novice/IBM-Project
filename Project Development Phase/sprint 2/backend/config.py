@@ -14,7 +14,6 @@ class Config():
     SECRET_KEY = os.urandom(24)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
-    API_VERSION_PREFIX = os.getenv('API_VERSION_PREFIX', '/api/v1/')
     SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 
 class DevelopmentConfig(Config):

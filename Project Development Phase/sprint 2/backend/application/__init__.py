@@ -12,7 +12,7 @@ def create_app():
 
     with app.app_context():
         from application.auth.routes import auth_blueprint
-        app.register_blueprint(auth_blueprint, url_prefix=f'{app.config["API_VERSION_PREFIX"]}/auth')
+        app.register_blueprint(auth_blueprint, url_prefix=f'/api/v1/auth')
         db.create_all()
 
     return app
