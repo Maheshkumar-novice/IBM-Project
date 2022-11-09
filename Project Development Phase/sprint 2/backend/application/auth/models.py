@@ -15,10 +15,12 @@ class Retailer(db.Model):
     address = Column(String(300), nullable=True)
     password_hash = Column(String(200), nullable=False)
     is_active = Column(Boolean, nullable=True)
-    email_confirmed_at = Column(DateTime, nullable=True, default=None)
-    created_at = Column(DateTime, nullable=False, default=datetime.now)
     confirmation_email_sent_at = Column(
         DateTime, nullable=True, default=datetime.now)
+    email_confirmed_at = Column(DateTime, nullable=True, default=None)
+    created_at = Column(DateTime, nullable=False, default=datetime.now)
+    updated_at = Column(DateTime, nullable=True,
+                        default=datetime.now, onupdate=datetime.now)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
