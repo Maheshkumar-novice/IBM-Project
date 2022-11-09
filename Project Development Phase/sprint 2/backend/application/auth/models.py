@@ -3,21 +3,22 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeTimedSerializer
 from flask import current_app
 from datetime import datetime
+from sqlalchemy import Column, Integer, Boolean, DateTime, String
 
 
 class Retailer(db.Model):
     __tablename__ = 'retailers'
-    id = db.Column(db.Integer, primary_key=True,
-                   nullable=False, autoincrement=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), index=True, unique=True, nullable=False)
-    address = db.Column(db.String(300), nullable=True)
-    password_hash = db.Column(db.String(200), nullable=False)
-    is_active = db.Column(db.Boolean, nullable=True)
-    email_confirmed_at = db.Column(db.DateTime, nullable=True, default=None)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    confirmation_email_sent_at = db.Column(
-        db.DateTime, nullable=True, default=datetime.now)
+
+    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    name = Column(String(100), nullable=False)
+    email = Column(String(100), index=True, unique=True, nullable=False)
+    address = Column(String(300), nullable=True)
+    password_hash = Column(String(200), nullable=False)
+    is_active = Column(Boolean, nullable=True)
+    email_confirmed_at = Column(DateTime, nullable=True, default=None)
+    created_at = Column(DateTime, nullable=False, default=datetime.now)
+    confirmation_email_sent_at = Column(
+        DateTime, nullable=True, default=datetime.now)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -31,7 +32,7 @@ class Retailer(db.Model):
         serializer = URLSafeTimedSerializer(secret_key)
         return serializer.dumps(self.email, salt=salt)
 
-    def is_eligible_for_resend(self):
+    def is_eligible_for_confirmation_resend(self):
         allowed_time_difference_in_seconds = current_app.config[
             'EMAIL_CONFIRMATION_TOKEN_MAX_AGE_SECONDS']
         current_time = datetime.now()
@@ -50,5 +51,5 @@ class Retailer(db.Model):
             serializer = URLSafeTimedSerializer(secret_key)
             email = serializer.loads(token, salt=salt, max_age=max_age)
         except:
-            return False
+            return None
         return email
