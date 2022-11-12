@@ -1,14 +1,17 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import PasswordField, StringField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
+
 from application.auth.models import Retailer
+
 
 class RegistrationForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     address = StringField('Address', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-    repeat_password = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    repeat_password = PasswordField('Repeat Password', validators=[
+                                    DataRequired(), EqualTo('password')])
 
     def validate_username(self, name):
         user = Retailer.query.filter_by(name=name.data).first()

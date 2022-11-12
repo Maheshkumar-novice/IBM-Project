@@ -1,12 +1,16 @@
+from datetime import datetime
+
+from flask_jwt_extended import create_access_token
+
 from application import db
-from application.auth.forms import RegistrationForm, LoginForm, ResendConfirmationMailForm
-from application.auth.models import Retailer
 from application.auth.constants import *
+from application.auth.forms import (LoginForm, RegistrationForm,
+                                    ResendConfirmationMailForm)
+from application.auth.models import Retailer
+from lib.constants import *
+from lib.mailer import send_confirmation_email
 from lib.response import response
 from lib.response_status_codes import *
-from lib.mailer import send_confirmation_email
-from datetime import datetime
-from flask_jwt_extended import create_access_token
 
 
 def register():
@@ -40,7 +44,7 @@ def login():
         if retailer is None or (not retailer.check_password(form.password.data)):
             return response(status_code=UNAUTHORIZED_ACCESS, status=ERROR, message=INVALID_DATA)
 
-        access_token = create_access_token(retailer.id)
+        access_token = create_access_token(retailer)
         response_data = {
             'jwt_token': access_token
         }

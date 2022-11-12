@@ -1,12 +1,16 @@
-from application import db
-from werkzeug.security import generate_password_hash, check_password_hash
-from itsdangerous import URLSafeTimedSerializer
-from flask import current_app
 from datetime import datetime
-from sqlalchemy import Column, Integer, Boolean, DateTime, String
+
+from flask import current_app
+from itsdangerous import URLSafeTimedSerializer
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy.orm import relationship
+from sqlalchemy_serializer import SerializerMixin
+from werkzeug.security import check_password_hash, generate_password_hash
+
+from application import db
 
 
-class Retailer(db.Model):
+class Retailer(db.Model, SerializerMixin):
     __tablename__ = 'retailers'
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
@@ -21,6 +25,10 @@ class Retailer(db.Model):
     created_at = Column(DateTime, nullable=False, default=datetime.now)
     updated_at = Column(DateTime, nullable=True,
                         default=datetime.now, onupdate=datetime.now)
+    products = relationship(
+        'Product', cascade='all, delete', back_populates='retailer')
+
+    serialize_only = ('name', 'email', 'address', 'products')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

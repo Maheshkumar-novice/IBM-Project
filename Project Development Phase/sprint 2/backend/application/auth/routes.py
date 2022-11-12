@@ -1,6 +1,7 @@
 from flask import Blueprint
-from application.auth.controllers import register, login, confirm_email, resend_confirmation_email
 
+from application.auth.controllers import (confirm_email, login, register,
+                                          resend_confirmation_email)
 
 auth_blueprint = Blueprint('auth', __name__)
 
