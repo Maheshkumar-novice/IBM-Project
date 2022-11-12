@@ -1,6 +1,6 @@
+from flask import current_app, url_for
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from flask import current_app, url_for
 
 
 def send_mail(subject, to_emails, plain_text_content=None, html_content=None, from_email=current_app.config['EMAIL_CONFIRMATION_SENDER_EMAIL']):

@@ -1,7 +1,7 @@
 from flask import jsonify
 
 
-def response(status_code, status='success', data={}, message=''):
+def response(status_code=200, status='success', data={}, message='Success'):
     response_data = {
         'status_code': status_code,
         'status': status,
