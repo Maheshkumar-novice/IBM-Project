@@ -5,7 +5,7 @@ from application.product.controllers import *
 products_blueprint = Blueprint('products', __name__)
 
 
-products_blueprint.add_url_rule(rule='/create',
+products_blueprint.add_url_rule(rule='/',
                                 view_func=create,
                                 endpoint='create',
                                 methods=['POST'])
