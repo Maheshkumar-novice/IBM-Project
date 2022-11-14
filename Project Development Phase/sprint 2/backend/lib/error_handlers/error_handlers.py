@@ -1,12 +1,10 @@
 from flask import current_app
-from flask_jwt_extended.exceptions import JWTExtendedException
 from sqlalchemy.exc import SQLAlchemyError
 
 import lib.response.response as response
 from application import jwt
 from lib.error_handlers.constants import *
 from lib.response.constants import *
-from lib.response.constants import ERROR, MESSAGE_404, MESSAGE_500
 
 
 def server_error_response(error):
