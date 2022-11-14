@@ -39,9 +39,9 @@ def login():
     form = LoginForm()
 
     if form.validate():
-        retailer = Retailer.query.filter_by(email=form.email.data).first()
+        retailer = Retailer.query.filter_by(email=form.email.data).scalar()
         if retailer is None or (not retailer.check_password(form.password.data)):
-            return response(status_code=UNAUTHORIZED_ACCESS, status=ERROR, message=INVALID_DATA)
+            return response.error(status_code=UNAUTHORIZED_ACCESS, message=INVALID_DATA)
 
         access_token = create_access_token(retailer)
         response_data = {
