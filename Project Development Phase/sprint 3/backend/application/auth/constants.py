@@ -7,3 +7,4 @@ INVALID_CONFIRMATION_TOKEN = 'Token Invalid. Please get another confirmation lin
 ACCOUNT_NOT_FOUND = 'Account Not Found.'
 WAIT_TO_GET_CONFIRMATION_MAIL = 'Please wait for few minutes and try again...!'
 ALREADY_CONFIRMED = 'Account already confirmed.'
+NOT_ACTIVE = 'Please activate your account.'
