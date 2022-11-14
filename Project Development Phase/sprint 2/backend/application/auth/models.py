@@ -27,8 +27,10 @@ class Retailer(db.Model, SerializerMixin):
                         default=datetime.now, onupdate=datetime.now)
     products = relationship(
         'Product', cascade='all, delete', back_populates='retailer')
+    locations = relationship(
+        'Location', cascade='all, delete', back_populates='retailer')
 
-    serialize_only = ('name', 'email', 'address', 'products')
+    serialize_only = ('name', 'email', 'address', 'products', 'locations')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

@@ -4,10 +4,9 @@ from application import db
 from application.product.constants import *
 from application.product.forms import ProductEditForm, ProductForm
 from application.product.models import Product
-from lib.constants import *
-from lib.response import response
-from lib.response_status_codes import *
-from lib.view_decorators import load_product_by_id
+from lib.decorators import load_product_by_id
+from lib.response.constants import *
+from lib.response.response import response
 
 
 @jwt_required()

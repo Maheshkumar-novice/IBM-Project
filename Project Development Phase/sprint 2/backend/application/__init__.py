@@ -18,9 +18,12 @@ def create_app():
 
     with app.app_context():
         from application.auth.routes import auth_blueprint
+        from application.location.routes import locations_blueprint
         from application.product.routes import products_blueprint
+
         app.register_blueprint(auth_blueprint, url_prefix='/v1/auth')
         app.register_blueprint(products_blueprint, url_prefix='/v1/products')
+        app.register_blueprint(locations_blueprint, url_prefix='/v1/locations')
 
         @jwt.user_identity_loader
         def user_identity_loader(user):
@@ -33,7 +36,7 @@ def create_app():
             identity = jwt_data['sub']
             return Retailer.query.filter_by(id=identity).one_or_none()
 
-        import lib.error_handlers
+        import lib.error_handlers.error_handlers
 
         db.create_all()
 

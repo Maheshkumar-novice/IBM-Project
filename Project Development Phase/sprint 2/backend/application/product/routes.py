@@ -1,6 +1,7 @@
 from flask import Blueprint
 
-from application.product.controllers import *
+from application.product.controllers import (create, delete_by_id, get_all,
+                                             get_by_id, update_by_id)
 
 products_blueprint = Blueprint('products', __name__)
 

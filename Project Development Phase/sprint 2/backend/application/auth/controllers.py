@@ -7,10 +7,9 @@ from application.auth.constants import *
 from application.auth.forms import (LoginForm, RegistrationForm,
                                     ResendConfirmationMailForm)
 from application.auth.models import Retailer
-from lib.constants import *
 from lib.mailer import send_confirmation_email
-from lib.response import response
-from lib.response_status_codes import *
+from lib.response.constants import *
+from lib.response.response import response
 
 
 def register():

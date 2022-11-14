@@ -8,18 +8,18 @@ from sqlalchemy_serializer import SerializerMixin
 from application import db
 
 
-class Product(db.Model, SerializerMixin):
-    __tablename__ = 'products'
+class Location(db.Model, SerializerMixin):
+    __tablename__ = 'locations'
     __table_args__ = (UniqueConstraint(
-        'retailer_id', 'name', name='products_unique_retailer_id_name'), )
+        'retailer_id', 'name', name='locations_unique_retailer_id_name'), )
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     retailer_id = Column(Integer, ForeignKey('retailers.id'), nullable=False)
     name = Column(String(50), nullable=False)
-    description = Column(String(200), nullable=False)
+    address = Column(String(200), nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now)
     updated_at = Column(DateTime, nullable=True,
                         default=datetime.now, onupdate=datetime.now)
-    retailer = relationship('Retailer', back_populates='products')
+    retailer = relationship('Retailer', back_populates='locations')
 
-    serialize_only = ('id', 'name', 'description')
+    serialize_only = ('id', 'name', 'address')
