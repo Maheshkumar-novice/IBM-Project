@@ -34,7 +34,7 @@ def create_app():
         @jwt.user_lookup_loader
         def user_lookup_loader(_jwt_header, jwt_data):
             identity = jwt_data['sub']
-            return Retailer.query.filter_by(id=identity).one_or_none()
+            return Retailer.query.filter_by(id=identity).one_or_404()
 
         import lib.error_handlers.error_handlers
 
