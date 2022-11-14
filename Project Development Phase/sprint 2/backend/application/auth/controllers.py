@@ -2,6 +2,7 @@ from datetime import datetime
 
 from flask_jwt_extended import create_access_token
 
+import lib.response.response as response
 from application import db
 from application.auth.constants import *
 from application.auth.forms import (LoginForm, RegistrationForm,
@@ -9,7 +10,6 @@ from application.auth.forms import (LoginForm, RegistrationForm,
 from application.auth.models import Retailer
 from lib.mailer import send_confirmation_email
 from lib.response.constants import *
-from lib.response.response import response
 
 
 def register():
@@ -30,9 +30,9 @@ def register():
         db.session.add(retailer)
         db.session.commit()
         response_data = {'id': retailer.id}
-        return response(status_code=RESOURCE_CREATED, status=SUCCESS, data=response_data, message=REGISTRATION_SUCCESS)
+        return response.success(status_code=RESOURCE_CREATED, data=response_data, message=REGISTRATION_SUCCESS)
 
-    return response(status_code=UNPROCESSABLE_ENTITY, status=ERROR, data=form.errors, message=INVALID_DATA)
+    return response.error(status_code=UNPROCESSABLE_ENTITY, data=form.errors, message=INVALID_DATA)
 
 
 def login():
@@ -47,9 +47,9 @@ def login():
         response_data = {
             'jwt_token': access_token
         }
-        return response(status_code=REQUEST_COMPLETED, status=SUCCESS, data=response_data, message=LOGIN_SUCCESS)
+        return response.success(status_code=REQUEST_COMPLETED, data=response_data, message=LOGIN_SUCCESS)
 
-    return response(status_code=UNPROCESSABLE_ENTITY, status=ERROR, data=form.errors, message=INVALID_DATA)
+    return response.error(status_code=UNPROCESSABLE_ENTITY, data=form.errors, message=INVALID_DATA)
 
 
 def confirm_email(token):
@@ -63,10 +63,10 @@ def confirm_email(token):
         db.session.add(retailer)
         db.session.commit()
         response_data = {'id': retailer.id}
-        return response(status_code=REQUEST_COMPLETED, status=SUCCESS, data=response_data, message=ACCOUNT_CONFIRMED)
+        return response.success(status_code=REQUEST_COMPLETED, data=response_data, message=ACCOUNT_CONFIRMED)
 
     response_data = {'token': token}
-    return response(status_code=UNPROCESSABLE_ENTITY, status=ERROR, data=response_data, message=INVALID_CONFIRMATION_TOKEN)
+    return response.error(status_code=UNPROCESSABLE_ENTITY, data=response_data, message=INVALID_CONFIRMATION_TOKEN)
 
 
 def resend_confirmation_email():
@@ -87,6 +87,6 @@ def resend_confirmation_email():
 
         db.session.add(retailer)
         db.session.commit()
-        return response(status_code=REQUEST_COMPLETED, status=SUCCESS, data={}, message=message)
+        return response.success(status_code=REQUEST_COMPLETED, message=message)
 
-    return response(status_code=UNPROCESSABLE_ENTITY, status=ERROR, data={}, message=INVALID_DATA)
+    return response.error(status_code=UNPROCESSABLE_ENTITY, message=INVALID_DATA)
