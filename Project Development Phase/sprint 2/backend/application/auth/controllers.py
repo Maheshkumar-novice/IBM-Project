@@ -81,12 +81,13 @@ def resend_confirmation_email():
             send_confirmation_email(retailer)
             retailer.confirmation_email_sent_at = datetime.now()
 
+            db.session.add(retailer)
+            db.session.commit()
+
             message = CONFIRMATION_MAIL_SENT
         else:
             message = WAIT_TO_GET_CONFIRMATION_MAIL
 
-        db.session.add(retailer)
-        db.session.commit()
         return response.success(status_code=REQUEST_COMPLETED, message=message)
 
     return response.error(status_code=UNPROCESSABLE_ENTITY, message=INVALID_DATA)
