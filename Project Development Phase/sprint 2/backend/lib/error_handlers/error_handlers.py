@@ -24,12 +24,8 @@ def error_handler_SQL(error):
     return server_error_response(error)
 
 
-@current_app.errorhandler(JWTExtendedException)
-def error_handler_SQL(error):
-    return server_error_response(error)
-
-
 def server_error_response(error):
+    current_app.log_exception(error)
     return response(status_code=500, status=ERROR, data={}, message=MESSAGE_500)
 
 
