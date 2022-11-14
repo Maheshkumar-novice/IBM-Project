@@ -57,11 +57,12 @@ def confirm_email(token):
 
     if email:
         retailer = Retailer.query.filter_by(email=email).first()
-        retailer.is_active = True
-        retailer.email_confirmed_at = datetime.now()
+        if not retailer.is_active:
+            retailer.is_active = True
+            retailer.email_confirmed_at = datetime.now()
 
-        db.session.add(retailer)
-        db.session.commit()
+            db.session.add(retailer)
+            db.session.commit()
         response_data = {'id': retailer.id}
         return response.success(status_code=REQUEST_COMPLETED, data=response_data, message=ACCOUNT_CONFIRMED)
 
@@ -77,6 +78,8 @@ def resend_confirmation_email():
 
         if not retailer:
             message = CONFIRMATION_MAIL_SENT
+        elif retailer.is_active:
+            message = ALREADY_CONFIRMED
         elif retailer.is_eligible_for_confirmation_resend():
             send_confirmation_email(retailer)
             retailer.confirmation_email_sent_at = datetime.now()

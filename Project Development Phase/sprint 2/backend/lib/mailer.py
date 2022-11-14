@@ -14,14 +14,17 @@ def send_mail(subject, to_emails, plain_text_content=None, html_content=None, fr
 
 
 def send_confirmation_email(user):
-    to_emails = [user.email]
-    confirmation_token = user.get_confirmation_token()
-    confirmation_link = url_for(
-        'auth.confirm_email', token=confirmation_token, _external=True)
-    subject = 'Inventory: Confirm Your Mail Now!'
-    plain_text_content = 'Please confirm your account by clicking the confirmation link below.'
-    html_content = f'''
-                    <a href='{confirmation_link}' target='_blank'>Click Here to Confirm Your Account!</a>
-                '''
-    send_mail(subject=subject, to_emails=to_emails,
-              plain_text_content=plain_text_content, html_content=html_content)
+    try:
+        to_emails = [user.email]
+        confirmation_token = user.get_confirmation_token()
+        confirmation_link = url_for(
+            'auth.confirm_email', token=confirmation_token, _external=True)
+        subject = 'Inventory: Confirm Your Mail Now!'
+        plain_text_content = 'Please confirm your account by clicking the confirmation link below.'
+        html_content = f'''
+                        <a href='{confirmation_link}' target='_blank'>Click Here to Confirm Your Account!</a>
+                    '''
+        send_mail(subject=subject, to_emails=to_emails,
+                  plain_text_content=plain_text_content, html_content=html_content)
+    except Exception as e:
+        current_app.log_exception(e)
