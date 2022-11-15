@@ -21,5 +21,7 @@ class Location(db.Model, SerializerMixin):
     updated_at = Column(DateTime, nullable=True,
                         default=datetime.now, onupdate=datetime.now)
     retailer = relationship('Retailer', back_populates='locations')
+    inventory_items = relationship(
+        'Inventory', cascade='all, delete', back_populates='location')
 
     serialize_only = ('id', 'name', 'address')
