@@ -21,5 +21,7 @@ class Product(db.Model, SerializerMixin):
     updated_at = Column(DateTime, nullable=True,
                         default=datetime.now, onupdate=datetime.now)
     retailer = relationship('Retailer', back_populates='products')
+    inventory_items = relationship(
+        'Inventory', cascade='all, delete', back_populates='product')
 
     serialize_only = ('id', 'name', 'description')
