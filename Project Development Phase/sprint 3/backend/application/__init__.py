@@ -1,5 +1,6 @@
 import ibm_db_sa
 from flask import Flask
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
@@ -7,6 +8,7 @@ from config import APP_SETTINGS
 
 db = SQLAlchemy()
 jwt = JWTManager()
+cors = CORS()
 
 
 def create_app():
@@ -15,6 +17,7 @@ def create_app():
 
     db.init_app(app)
     jwt.init_app(app)
+    cors.init_app(app)
 
     with app.app_context():
         from application.auth.routes import auth_blueprint
