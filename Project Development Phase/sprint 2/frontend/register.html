@@ -9,7 +9,7 @@
     <title>Register</title>
   </head>
   <body>
-    <form class="acc-form">
+    <form class="acc-form" id="register-form">
       <h3>Register</h3>
       <div>
         <label for="name">Name
@@ -33,11 +33,11 @@
         <label for="re-password">Re-password
           <span class="required-input">*</span>
         </label>
-        <input type="re-password" name="re-password" id="re-password" class="acc-input" required />
+        <input type="password" name="re-password" id="re-password" class="acc-input" required />
       </div>
       <div>
         <label for="address">Address</label>
-        <textarea id="address" class="acc-input" rows="3"></textarea>
+        <textarea id="address" name="address" class="acc-input" rows="3" required></textarea>
       </div>
       <div>
         <button type="submit" id="register-btn" class="btn acc-submit-btn">Register</button>
@@ -46,5 +46,9 @@
         </p>
       </div>
     </form>
+    <div class="message-box d-none"></div>
+    <div id="loader" class="d-none"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/modules/auth/register.js" type="module"></script>
   </body>
 </html>
