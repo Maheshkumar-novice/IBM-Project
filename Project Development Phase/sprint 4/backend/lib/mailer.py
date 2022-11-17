@@ -28,3 +28,14 @@ def send_confirmation_email(user):
                   plain_text_content=plain_text_content, html_content=html_content)
     except Exception as e:
         current_app.log_exception(e)
+
+
+def send_restock_mail(user, product_name):
+    try:
+        to_emails = [user.email]
+        subject = 'Inventory: Product reached the Threshold.'
+        plain_text_content = f'Please start think about restocking the product {product_name}'
+        send_mail(subject=subject, to_emails=to_emails,
+                  plain_text_content=plain_text_content)
+    except Exception as e:
+        current_app.log_exception(e)
