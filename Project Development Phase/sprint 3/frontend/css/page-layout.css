@@ -26,7 +26,14 @@ body#auth-page{
 
 #app-header > ul{
   display: flex;
-  justify-content: space-between;
+}
+
+#app-header li{
+  margin: 0rem .8rem;
+}
+
+#app-header li:last-of-type{
+  margin-left: auto;
 }
 
 #main-content{
