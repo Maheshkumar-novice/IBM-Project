@@ -68,6 +68,22 @@ const addProduct = async (api_body) => {
   }
 }
 
+const editProduct = async (id, api_body) => {
+  try {
+    const { data } = await axios.put(
+      `${constants.BASE_URL}/products/${id}`,
+      api_body, requestHeaders);
+    alert(messageBox, data.message, 'success');
+    getProducts();
+  }
+  catch (error) {
+    console.error("Login Error: ", error);
+    alert(messageBox, error.response.data.message, 'failed');
+  }
+  finally {
+    loader.classList.add("d-none");
+  }
+}
 
 const deleteProduct = async (productId) => {
   try {
@@ -85,7 +101,6 @@ const deleteProduct = async (productId) => {
     loader.classList.add("d-none");
   }
 }
-
 
 const createProductCards = (products) => {
   productsWrapper.innerHTML = '';
@@ -118,6 +133,28 @@ const createProductCards = (products) => {
       deleteProduct(productId)
     });
   });
+
+  const editBtns = document.querySelectorAll('.edit-btn');
+  editBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const productId = e.currentTarget.getAttribute('data-id');
+      const productDes = document.querySelector(`#card-${productId} .product-des`);
+      const editBtn = document.querySelector(`#card-${productId} .edit-btn`);
+      const deleteBtn = document.querySelector(`#card-${productId} .delete-btn`);
+      const saveEditBtn = document.querySelector(`#card-${productId} .save-edit-btn`);
+      productDes.setAttribute('contenteditable', true);
+      productDes.focus();
+      editBtn.classList.add('d-none');
+      deleteBtn.classList.add('d-none');
+      saveEditBtn.classList.remove('d-none');
+      saveEditBtn.addEventListener('click', () => {
+        loader.classList.remove('d-none');
+        editProduct(productId, {
+          description: productDes.textContent
+        })
+      })
+    })
+  })
 }
 
 const resetProductForm = () => {
