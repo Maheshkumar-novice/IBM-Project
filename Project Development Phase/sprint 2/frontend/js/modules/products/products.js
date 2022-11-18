@@ -1,7 +1,12 @@
 import { constants } from "../../constants.js";
+import { alert } from "../../utils.js";
 
 const productsWrapper = document.querySelector("#products");
 const loader = document.querySelector("#loader");
+const formToggleBtn = document.querySelector("#form-toggle-btn");
+const addProductForm = document.querySelector("#add-product-form");
+const messageBox = document.querySelector(".message-box");
+
 const token = localStorage.getItem("token");
 const requestHeaders = {
   headers: {
@@ -14,6 +19,20 @@ window.addEventListener('load', () => {
   getProducts();
 });
 
+formToggleBtn.addEventListener("click", () => {
+  addProductForm.classList.toggle("d-none");
+});
+
+addProductForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  loader.classList.remove("d-none");
+  const api_body = {
+    name: e.target[0].value,
+    description: e.target[1].value
+  }
+  addProduct(api_body);
+});
+
 const getProducts = async () => {
   try {
     const { data } = await axios.get(
@@ -22,11 +41,30 @@ const getProducts = async () => {
     );
     createProductCards(data.data);
   }
-  catch (err) {
+  catch (error) {
     console.error("Get Products Error: ", error);
   }
   finally {
     loader.classList.add('d-none');
+  }
+}
+
+const addProduct = async (api_body) => {
+  try {
+    const { data } = await axios.post(
+      `${constants.BASE_URL}/products/`,
+      api_body, requestHeaders);
+    addProductForm.classList.add('d-none');
+    alert(messageBox, data.message, 'success');
+    getProducts();
+    resetProductForm();
+  }
+  catch (error) {
+    console.error("Add Product Error: ", error);
+    alert(messageBox, error.response.data.message, 'failed');
+  }
+  finally {
+    loader.classList.add("d-none");
   }
 }
 
@@ -51,4 +89,11 @@ const createProductCards = (products) => {
       <p class="product-des">${product.description}</p>
     </div>`;
   });
+}
+
+const resetProductForm = () => {
+  const formInputs = document.querySelectorAll('input');
+  formInputs.forEach((input) => {
+    input.value = '';
+  })
 }

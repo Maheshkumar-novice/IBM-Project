@@ -5,7 +5,7 @@
 
 .product{
   position: relative;
-  width:min(400px, 90%);
+  width:min(380px, 90%);
   margin: 2rem;
   box-shadow: 3px 2px 7px #00000020;
   border: 2px solid #66666650;
