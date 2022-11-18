@@ -23,6 +23,22 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+#app-header{
+  background-color: var(--accent);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 1rem;
+}
+
+#app-header > ul{
+  display: flex;
+  justify-content: space-between;
+}
+
+#main-content{
+  padding:5rem 2rem;
+}
+
 li {
   list-style: none;
 }

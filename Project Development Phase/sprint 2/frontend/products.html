@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/products.css">
   <link rel="stylesheet" href="./css/common.css">
   <script src="https://kit.fontawesome.com/87e71d54fb.js" crossorigin="anonymous"></script>
-  <title>Home</title>
+  <title>Products</title>
 </head>
 <body>
   <header id="app-header">
@@ -17,9 +17,24 @@
     </ul>
   </header>
   <main id="main-content">
-    <p>home page</p>
+    <div id="products">
+      <div class="product">
+        <div class="product-header">
+          <h4 class="product-name">product-1</h4>
+          <div>
+            <button class="action-btn edit-btn">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="action-btn delete-btn">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <p class="product-des">Description</p>
+      </div>
+    </div>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="./js/main.js"></script>
+  <script src="./js/modules/products/products.js" type="module"></script>
 </body>
 </html>
