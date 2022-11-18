@@ -68,7 +68,27 @@ const addProduct = async (api_body) => {
   }
 }
 
+
+const deleteProduct = async (productId) => {
+  try {
+    const { data } = await axios.delete(
+      `${constants.BASE_URL}/products/${productId}`,
+      requestHeaders);
+    alert(messageBox, data.message, 'success');
+    getProducts();
+  }
+  catch (error) {
+    console.error("Login Error: ", error);
+    alert(messageBox, error.response.data.message, 'failed');
+  }
+  finally {
+    loader.classList.add("d-none");
+  }
+}
+
+
 const createProductCards = (products) => {
+  productsWrapper.innerHTML = '';
   products.map((product) => {
     productsWrapper.innerHTML +=
       `<div class="product" id='card-${product.id}'>
@@ -88,6 +108,15 @@ const createProductCards = (products) => {
       </div>
       <p class="product-des">${product.description}</p>
     </div>`;
+  });
+
+  const deleteBtns = document.querySelectorAll('.delete-btn');
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const productId = e.currentTarget.getAttribute('data-id');
+      loader.classList.remove('d-none');
+      deleteProduct(productId)
+    });
   });
 }
 
