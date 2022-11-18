@@ -42,3 +42,20 @@
 .action-btn > *{
   margin:0 .5rem;
 }
+
+#add-product-form{
+  width: min(90%, 450px);
+}
+
+.form-title{
+  font-size:1.6rem;
+}
+
+.app-submit-btn{
+  margin: 1rem 0 0;
+}
+
+#add-product-btn{
+  width: unset;
+  border-radius: .5rem;
+}

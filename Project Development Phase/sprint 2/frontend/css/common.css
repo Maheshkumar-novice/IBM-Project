@@ -17,27 +17,6 @@
   --success: rgb(64, 149, 64);
 }
 
-body {
-  min-height: 100vh;
-  font-size: 1.2rem;
-  font-family: "Source Sans Pro", sans-serif;
-}
-
-#app-header{
-  background-color: var(--accent);
-  color: var(--primary);
-  font-weight: bold;
-  padding: 1rem;
-}
-
-#app-header > ul{
-  display: flex;
-  justify-content: space-between;
-}
-
-#main-content{
-  padding:5rem 2rem;
-}
 
 li {
   list-style: none;
@@ -71,8 +50,12 @@ textarea {
   text-align: center;
 }
 
+.text-right{
+  text-align: right;
+}
+
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .message-box {
@@ -116,4 +99,12 @@ textarea {
   to {
     transform: translate(-50%, -50%) rotate(1turn);
   }
+}
+
+.center-modal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }

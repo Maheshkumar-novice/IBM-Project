@@ -1,0 +1,34 @@
+body {
+  min-height: 100vh;
+  font-size: 1.2rem;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+body#auth-page{
+  background-image: linear-gradient(
+    to right top,
+    #f66b6b,
+    #f57b7d,
+    #f2989b,
+    #ebb3b7,
+    #e1ced0
+  );
+  display: grid;
+  place-items: center;
+}
+
+#app-header{
+  background-color: var(--accent);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 1rem;
+}
+
+#app-header > ul{
+  display: flex;
+  justify-content: space-between;
+}
+
+#main-content{
+  padding:3rem 2rem;
+}
