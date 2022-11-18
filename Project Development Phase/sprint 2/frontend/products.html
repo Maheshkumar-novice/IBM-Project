@@ -20,31 +20,18 @@
   </header>
   <main id="main-content">
     <div class="text-right">
-      <button class="btn app-submit-btn" id="add-product-btn">add product</button>
+      <button class="btn app-submit-btn" id="form-toggle-btn">add product</button>
     </div>
-    <div id="products">
-      <div class="product">
-        <div class="product-header">
-          <h4 class="product-name">product-1</h4>
-          <div>
-            <button class="action-btn edit-btn">
-              <i class="fas fa-pen"></i>
-            </button>
-            <button class="action-btn delete-btn">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </div>
-        <p class="product-des">Description</p>
-      </div>
-    </div>
+    <div id="products"></div>
   </main>
   <form class="app-form center-modal d-none" id="add-product-form">
     <h3 class="form-title">Add product</h3>
-    <input type="text" placeholder="name" class="app-input">
-    <input type="text" placeholder="description" class="app-input">
+    <input type="text" placeholder="name" id="product-name" name="name" class="app-input">
+    <input type="text" placeholder="description" id="product-des" name="description" class="app-input">
     <button type="submit" class="btn app-submit-btn">Add</button>
   </form>
+  <div class="message-box d-none"></div>
+  <div id="loader" class="d-none"></div>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./js/modules/products/products.js" type="module"></script>
 </body>

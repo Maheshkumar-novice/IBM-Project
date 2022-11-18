@@ -4,7 +4,7 @@ from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
 from config import APP_SETTINGS
-
+from flask_cors import CORS
 db = SQLAlchemy()
 jwt = JWTManager()
 
@@ -15,7 +15,7 @@ def create_app():
 
     db.init_app(app)
     jwt.init_app(app)
-
+    CORS(app)
     with app.app_context():
         from application.auth.routes import auth_blueprint
         from application.location.routes import locations_blueprint

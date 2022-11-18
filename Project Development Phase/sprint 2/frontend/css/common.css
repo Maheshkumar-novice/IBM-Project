@@ -90,6 +90,7 @@ textarea {
   border-right-color: var(--gray);
   border-top-color: var(--gray);
   animation: spinner 1s infinite linear;
+  z-index: 100;
 }
 
 @keyframes spinner {

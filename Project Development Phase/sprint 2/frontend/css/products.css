@@ -4,8 +4,8 @@
 }
 
 .product{
-  min-width: 400px;
-  width: max-content;
+  position: relative;
+  width:min(400px, 90%);
   margin: 2rem;
   box-shadow: 3px 2px 7px #00000020;
   border: 2px solid #66666650;
@@ -26,6 +26,7 @@
 
 .product-des{
   padding: 1.2rem 1rem;
+  overflow-wrap: anywhere;
 }
 
 .action-btn{
@@ -55,7 +56,7 @@
   margin: 1rem 0 0;
 }
 
-#add-product-btn{
+#form-toggle-btn{
   width: unset;
   border-radius: .5rem;
 }
