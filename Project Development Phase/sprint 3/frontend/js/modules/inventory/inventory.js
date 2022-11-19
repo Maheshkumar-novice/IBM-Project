@@ -74,6 +74,40 @@ const addInventory = async (api_body) => {
   }
 }
 
+const editInventory = async (id, api_body) => {
+  try {
+    const { data } = await axios.put(
+      `${constants.BASE_URL}/inventory/${id}`,
+      api_body, requestHeaders);
+    alert(messageBox, data.message, 'success');
+    getInventory();
+  }
+  catch (error) {
+    console.error("Edit Inventory Error: ", error);
+    alert(messageBox, error.response.data.message, 'failed');
+  }
+  finally {
+    loader.classList.add("d-none");
+  }
+}
+
+const deleteInventory = async (inventoryId) => {
+  try {
+    const { data } = await axios.delete(
+      `${constants.BASE_URL}/inventory/${inventoryId}`,
+      requestHeaders);
+    alert(messageBox, data.message, 'success');
+    getInventory();
+  }
+  catch (error) {
+    console.error("Delete Inventory Error: ", error);
+    alert(messageBox, error.response.data.message, 'failed');
+  }
+  finally {
+    loader.classList.add("d-none");
+  }
+}
+
 const getProducts = async () => {
   try {
     const { data } = await axios.get(
@@ -97,7 +131,7 @@ const getLocations = async () => {
     createFormOptions(locationNameInput,data.data)
   }
   catch (error) {
-    console.error("Get Products Error: ", error);
+    console.error("Get Locations Error: ", error);
   }
 }
 
@@ -120,11 +154,45 @@ const createInventoryCards = (inventories) => {
             </button>
           </div>
         </div>
-        <p class="item-des inventory-location">Location: <span>${inventory.location.name}</span></p>
-        <p class="item-des inventory-quantity pt-0">Quantity: <span>${inventory.quantity}</span></p>
-        <p class="item-des inventory-threshold pt-0">Threshold: <span>${inventory.threshold}</span></p>
+        <p class="item-des">Location: <span class='inventory-location'>${inventory.location.name}</span></p>
+        <p class="item-des pt-0">Quantity: <span class='inventory-quantity'>${inventory.quantity}</span></p>
+        <p class="item-des pt-0">Threshold: <span class='inventory-threshold'>${inventory.threshold}</span></p>
       </div>`;
   });
+
+  const deleteBtns = document.querySelectorAll('.delete-btn');
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const inventoryId = e.currentTarget.getAttribute('data-id');
+      loader.classList.remove('d-none');
+      deleteInventory(inventoryId)
+    });
+  });
+
+  const editBtns = document.querySelectorAll('.edit-btn');
+  editBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const inventoryId = e.currentTarget.getAttribute('data-id');
+      const inventoryQuantity = document.querySelector(`#card-${inventoryId} .inventory-quantity`);
+      const inventoryThreshold = document.querySelector(`#card-${inventoryId} .inventory-threshold`);
+      const editBtn = document.querySelector(`#card-${inventoryId} .edit-btn`);
+      const deleteBtn = document.querySelector(`#card-${inventoryId} .delete-btn`);
+      const saveEditBtn = document.querySelector(`#card-${inventoryId} .save-edit-btn`);
+      inventoryQuantity.setAttribute('contenteditable', true);
+      inventoryThreshold.setAttribute('contenteditable', true);
+      inventoryQuantity.focus();
+      editBtn.classList.add('d-none');
+      deleteBtn.classList.add('d-none');
+      saveEditBtn.classList.remove('d-none');
+      saveEditBtn.addEventListener('click', () => {
+        loader.classList.remove('d-none');
+        editInventory(inventoryId, {
+          quantity: inventoryQuantity.textContent,
+          threshold: inventoryThreshold.textContent,
+        })
+      })
+    })
+  })
 }
 
 const createFormOptions = (element, data) => {
@@ -136,7 +204,6 @@ const createFormOptions = (element, data) => {
 const resetInventoryForm = () => {
   const formInputs = document.querySelectorAll('.app-input');
   formInputs.forEach((input) => {
-    console.log(input);
     input.value = '';
   })
 }
