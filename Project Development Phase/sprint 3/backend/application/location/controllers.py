@@ -50,7 +50,7 @@ def update_by_id(location):
     if form.validate():
         form_address = form.address.data
         if form_address != location.address:
-            location.description = form_address
+            location.address = form_address
 
             db.session.add(location)
             db.session.commit()
