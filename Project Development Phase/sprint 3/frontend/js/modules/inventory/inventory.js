@@ -1,5 +1,5 @@
 import { constants } from "../../constants.js";
-import { alert } from "../../utils.js";
+import { alert, checkForTokenExpiry } from "../../utils.js";
 
 
 const loader = document.querySelector("#loader");
@@ -49,6 +49,7 @@ const getInventory = async () => {
   }
   catch (error) {
     console.error("Get Inventory Error: ", error);
+    checkForTokenExpiry(error.response.status);
   }
   finally {
     loader.classList.add('d-none');
@@ -67,6 +68,7 @@ const addInventory = async (api_body) => {
   }
   catch (error) {
     console.error("Add Product Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -84,6 +86,7 @@ const editInventory = async (id, api_body) => {
   }
   catch (error) {
     console.error("Edit Inventory Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -101,6 +104,7 @@ const deleteInventory = async (inventoryId) => {
   }
   catch (error) {
     console.error("Delete Inventory Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -114,7 +118,7 @@ const getProducts = async () => {
       `${constants.BASE_URL}/products/all`,
       requestHeaders
     );
-    createFormOptions(productNameInput,data.data)
+    createFormOptions(productNameInput, data.data);
   }
   catch (error) {
     console.error("Get Products Error: ", error);
@@ -128,7 +132,7 @@ const getLocations = async () => {
       `${constants.BASE_URL}/locations/all`,
       requestHeaders
     );
-    createFormOptions(locationNameInput,data.data)
+    createFormOptions(locationNameInput, data.data)
   }
   catch (error) {
     console.error("Get Locations Error: ", error);

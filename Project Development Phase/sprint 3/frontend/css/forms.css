@@ -45,7 +45,7 @@
 
 .app-form a:hover,
 .app-form a:focus {
-  color: var(--dark-ascent);
+  color: var(--dark-accent);
   text-decoration: underline;
 }
 

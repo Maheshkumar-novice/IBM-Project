@@ -19,6 +19,11 @@ body#auth-page{
 
 #auth-page .message-box{
   background-color: #ffffff60;
+  top: 0%;
+  left: unset;
+  right: 0%;
+  transform: none;
+  animation: none;
 }
 
 #app-header{

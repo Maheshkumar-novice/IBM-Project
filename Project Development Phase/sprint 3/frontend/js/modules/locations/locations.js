@@ -1,5 +1,5 @@
 import { constants } from "../../constants.js";
-import { alert } from "../../utils.js";
+import { alert, checkForTokenExpiry } from "../../utils.js";
 
 const locationsWrapper = document.querySelector("#locations");
 const loader = document.querySelector("#loader");
@@ -43,6 +43,7 @@ const getLocations = async () => {
   }
   catch (error) {
     console.error("Get Locations Error: ", error);
+    checkForTokenExpiry(error.response.status);
   }
   finally {
     loader.classList.add('d-none');
@@ -61,6 +62,7 @@ const addLocation = async (api_body) => {
   }
   catch (error) {
     console.error("Add Location Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -78,6 +80,7 @@ const editLocation = async (id, api_body) => {
   }
   catch (error) {
     console.error("Edit Location Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -95,6 +98,7 @@ const deleteLocation = async (locationId) => {
   }
   catch (error) {
     console.error("Delete Location Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {

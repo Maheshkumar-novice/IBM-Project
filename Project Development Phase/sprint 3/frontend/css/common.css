@@ -53,8 +53,9 @@ textarea {
 
 .message-box {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
   max-width: 30%;
   margin: 2rem;
   padding: 1rem 2rem;
@@ -62,6 +63,14 @@ textarea {
   color: var(--gray);
   background-color: var(--primary);
   font-weight: bold;
+  animation: pop-up .5s 1 forwards linear;
+}
+
+@keyframes pop-up {
+  to{
+    top: 5%;
+    left: 50%;
+  }
 }
 
 .message-box.success {

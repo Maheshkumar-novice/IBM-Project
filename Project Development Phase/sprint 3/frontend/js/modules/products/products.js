@@ -1,5 +1,5 @@
 import { constants } from "../../constants.js";
-import { alert } from "../../utils.js";
+import { alert, checkForTokenExpiry } from "../../utils.js";
 
 const productsWrapper = document.querySelector("#products");
 const loader = document.querySelector("#loader");
@@ -43,6 +43,7 @@ const getProducts = async () => {
   }
   catch (error) {
     console.error("Get Products Error: ", error);
+    checkForTokenExpiry(error.response.status);
   }
   finally {
     loader.classList.add('d-none');
@@ -61,6 +62,7 @@ const addProduct = async (api_body) => {
   }
   catch (error) {
     console.error("Add Product Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -78,6 +80,7 @@ const editProduct = async (id, api_body) => {
   }
   catch (error) {
     console.error("Edit Product Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -95,6 +98,7 @@ const deleteProduct = async (productId) => {
   }
   catch (error) {
     console.error("Delete Product Error: ", error);
+    checkForTokenExpiry(error.response.status);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
