@@ -77,7 +77,7 @@ const editProduct = async (id, api_body) => {
     getProducts();
   }
   catch (error) {
-    console.error("Login Error: ", error);
+    console.error("Edit Product Error: ", error);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -94,7 +94,7 @@ const deleteProduct = async (productId) => {
     getProducts();
   }
   catch (error) {
-    console.error("Login Error: ", error);
+    console.error("Delete Product Error: ", error);
     alert(messageBox, error.response.data.message, 'failed');
   }
   finally {
@@ -106,9 +106,9 @@ const createProductCards = (products) => {
   productsWrapper.innerHTML = '';
   products.map((product) => {
     productsWrapper.innerHTML +=
-      `<div class="product" id='card-${product.id}'>
-      <div class="product-header">
-        <h4 class="product-name">${product.name}</h4>
+      `<div class="item product" id='card-${product.id}'>
+      <div class="item-header product-header">
+        <h4 class="item-name product-name">${product.name}</h4>
         <div>
           <button class="action-btn edit-btn" data-id=${product.id}>
             <i class="fas fa-pen"></i>
@@ -121,7 +121,7 @@ const createProductCards = (products) => {
           </button>
         </div>
       </div>
-      <p class="product-des">${product.description}</p>
+      <p class="item-des product-des">${product.description}</p>
     </div>`;
   });
 
