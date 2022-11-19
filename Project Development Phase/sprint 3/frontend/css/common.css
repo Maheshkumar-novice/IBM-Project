@@ -109,3 +109,7 @@ textarea {
   transform: translate(-50%, -50%);
   z-index: 10;
 }
+
+.pt-0{
+  padding-top: 0 !important;
+}

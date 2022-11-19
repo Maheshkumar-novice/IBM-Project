@@ -12,7 +12,7 @@
   margin: 0.75rem 0;
 }
 
-.app-input {
+.app-input, select {
   width: 100%;
   padding: 0.75rem 1rem;
   outline: none;
@@ -57,4 +57,9 @@
 
 textarea.app-input {
   resize: none;
+}
+
+select{
+  background-color: inherit;
+  font: inherit;
 }
