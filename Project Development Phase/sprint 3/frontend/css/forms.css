@@ -12,7 +12,7 @@
   margin: 0.75rem 0;
 }
 
-.app-input, select {
+.app-input {
   width: 100%;
   padding: 0.75rem 1rem;
   outline: none;
@@ -28,7 +28,14 @@
   width: 100%;
   margin: 1rem 0 2rem;
   padding: 0.75rem 1rem;
-  font-weight: bold;
+  color: var(--primary);
+  background-color: var(--accent);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+
+.app-submit-btn:hover{
+  background-color: var(--dark-accent);
+  transform: skew(2deg);
 }
 
 .app-form a {

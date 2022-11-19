@@ -17,6 +17,10 @@ body#auth-page{
   place-items: center;
 }
 
+#auth-page .message-box{
+  background-color: #ffffff60;
+}
+
 #app-header{
   background-color: var(--accent);
   color: var(--primary);
@@ -30,6 +34,14 @@ body#auth-page{
 
 #app-header li{
   margin: 0rem .8rem;
+}
+
+#app-header li:hover{
+  text-decoration: underline;
+}
+
+#app-header .curr-page{
+  text-shadow: 1px 1px 1px #444;
 }
 
 #app-header li:last-of-type{

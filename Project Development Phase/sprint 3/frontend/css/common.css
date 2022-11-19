@@ -13,7 +13,7 @@
   --secondary: #000;
   --gray: #666;
   --accent: #e26566;
-  --dark-ascent: #eb5f62;
+  --dark-accent: #eb5f62;
   --success: rgb(64, 149, 64);
 }
 
@@ -34,16 +34,9 @@ textarea {
 }
 
 .btn {
-  color: var(--primary);
-  background-color: var(--accent);
   border: none;
   cursor: pointer;
-  transition: transform 0.25s ease, background-color 0.25s ease;
-}
-
-.btn:hover {
-  background-color: var(--dark-ascent);
-  transform: skew(2deg);
+  font-weight: bold;
 }
 
 .text-center {
@@ -67,7 +60,7 @@ textarea {
   padding: 1rem 2rem;
   border-radius: 0.5rem;
   color: var(--gray);
-  background-color: #ffffff60;
+  background-color: var(--primary);
   font-weight: bold;
 }
 
