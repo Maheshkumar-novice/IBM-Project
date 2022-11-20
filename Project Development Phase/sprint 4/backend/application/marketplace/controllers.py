@@ -11,15 +11,15 @@ from lib.response.constants import *
 
 
 def get_all_retailers():
-    retailers = [{'name': retailer.name}
-                 for retailer in Retailer.query.with_entities(Retailer.name).all()]
+    retailers = [{'id': retailer.id, 'name': retailer.name}
+                 for retailer in Retailer.query.with_entities(Retailer.id, Retailer.name).all()]
     return response.success(status_code=REQUEST_COMPLETED, data=retailers, message=ALL_RETAILERS)
 
 
 def get_all_locations_for_a_retailer(retailer_id):
-    locations_for_a_retailer = Location.query.with_entities(Location.name).filter_by(
+    locations_for_a_retailer = Location.query.with_entities(Location.id, Location.name).filter_by(
         retailer_id=retailer_id).all()
-    locations_for_a_retailer = [{'name': location.name}
+    locations_for_a_retailer = [{'id': location.id, 'name': location.name}
                                 for location in locations_for_a_retailer]
     return response.success(status_code=REQUEST_COMPLETED, data=locations_for_a_retailer, message=LOCATIONS_FOR_A_RETAILER)
 
