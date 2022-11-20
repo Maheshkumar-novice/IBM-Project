@@ -25,8 +25,8 @@ def get_all_locations_for_a_retailer(retailer_id):
 
 
 def get_all_products_for_a_location(location_id):
-    products_for_a_location = Product.query.with_entities(Product.name).filter_by(
-        retailer_id=Location.query.with_entities(Location.retailer_id).filter_by(id=location_id)).all()
+    products_for_a_location = Product.query.with_entities(Product.name).where(
+        Product.id.in_(Inventory.query.with_entities(Inventory.product_id).filter_by(location_id=location_id))).all()
     products_for_a_location = [{'name': product.name}
                                for product in products_for_a_location]
     return response.success(status_code=REQUEST_COMPLETED, data=products_for_a_location, message=PRODUCTS_FOR_A_LOCATION)
