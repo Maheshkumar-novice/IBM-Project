@@ -12,6 +12,8 @@ RUN pip3 install --upgrade pip
 
 RUN pip3 install -r requirements.txt
 
+RUN apt install libxml2 -y
+
 COPY . .
 
-CMD ["python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD ["python3", "-m", "gunicorn", "-w", "4", "--thread", "2", "-b",  "0.0.0.0:5000", "wsgi:app"]
