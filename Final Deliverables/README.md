@@ -1,6 +1,6 @@
 # Setup Guide
 
-## Backend
+## Backend - Local
 
 ### Move to the backend directory
 
@@ -35,6 +35,34 @@ Create necessary values in the `.env` file by referencing the `.env.template` fi
 
 ### Run
 
-```
+```sh
 flask run
 ```
+
+### Additional
+
+```sh
+flask create-db
+```
+To create some data in the DB for development purposes.
+
+## Frontend - Local
+
+### Move to the frontend directory
+
+```sh
+cd Final\ Deliverables/frontend
+```
+
+### Install dependencies
+
+```sh
+npm install
+```
+
+### Run
+
+```sh
+npm start
+```
+
