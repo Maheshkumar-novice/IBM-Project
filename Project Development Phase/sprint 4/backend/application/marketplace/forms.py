@@ -13,11 +13,11 @@ class PurchaseOrderForm(FlaskForm):
                             NumberRange(min=1, max=9999)])
 
     def validate_product_name(self, name):
-        product = Product.query.filter_by(name=name.data).scalar()
+        product = Product.query.filter_by(name=name.data).all()
         if product is None:
             raise ValidationError('Product doesn\'t exist!')
 
     def validate_location_name(self, name):
-        location = Location.query.filter_by(name=name.data).scalar()
+        location = Location.query.filter_by(name=name.data).all()
         if location is None:
             raise ValidationError('Location doesn\'t exist!')

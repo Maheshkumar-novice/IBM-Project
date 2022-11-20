@@ -1,3 +1,4 @@
+from flask_jwt_extended import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired, ValidationError
@@ -10,7 +11,8 @@ class ProductForm(FlaskForm):
     description = StringField('Description', validators=[DataRequired()])
 
     def validate_name(self, name):
-        product = Product.query.filter_by(name=name.data).first()
+        product = Product.query.filter_by(
+            name=name.data, retailer_id=current_user.id).first()
         if product is not None:
             raise ValidationError('Product already exists!')
 

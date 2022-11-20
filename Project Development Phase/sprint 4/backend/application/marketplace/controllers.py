@@ -11,36 +11,36 @@ from lib.response.constants import *
 
 
 def get_all_retailers():
-    retailers = [{'name': retailer.name}
-                 for retailer in Retailer.query.with_entities(Retailer.name).all()]
+    retailers = [{'id': retailer.id, 'name': retailer.name}
+                 for retailer in Retailer.query.with_entities(Retailer.id, Retailer.name).all()]
     return response.success(status_code=REQUEST_COMPLETED, data=retailers, message=ALL_RETAILERS)
 
 
 def get_all_locations_for_a_retailer(retailer_id):
-    locations_for_a_retailer = Location.query.with_entities(Location.name).filter_by(
+    locations_for_a_retailer = Location.query.with_entities(Location.id, Location.name).filter_by(
         retailer_id=retailer_id).all()
-    locations_for_a_retailer = [{'name': location.name}
+    locations_for_a_retailer = [{'id': location.id, 'name': location.name}
                                 for location in locations_for_a_retailer]
     return response.success(status_code=REQUEST_COMPLETED, data=locations_for_a_retailer, message=LOCATIONS_FOR_A_RETAILER)
 
 
 def get_all_products_for_a_location(location_id):
-    products_for_a_location = Product.query.with_entities(Product.name).filter_by(
-        retailer_id=Location.query.with_entities(Location.retailer_id).filter_by(id=location_id)).all()
+    products_for_a_location = Product.query.with_entities(Product.name).where(
+        Product.id.in_(Inventory.query.with_entities(Inventory.product_id).filter_by(location_id=location_id))).all()
     products_for_a_location = [{'name': product.name}
                                for product in products_for_a_location]
     return response.success(status_code=REQUEST_COMPLETED, data=products_for_a_location, message=PRODUCTS_FOR_A_LOCATION)
 
 
-def complete_purchase_order():
+def complete_purchase_order(retailer_id):
     form = PurchaseOrderForm()
 
     if form.validate():
         form_product_name = form.product_name.data
         product_id = Product.query.with_entities(
-            Product.id).filter_by(name=form_product_name).scalar()
+            Product.id).filter_by(name=form_product_name, retailer_id=retailer_id).scalar()
         location_id = Location.query.with_entities(
-            Location.id).filter_by(name=form.location_name.data).scalar()
+            Location.id).filter_by(name=form.location_name.data, retailer_id=retailer_id).scalar()
 
         existing_product_record = Inventory.query.filter_by(
             product_id=product_id, location_id=location_id).scalar()
