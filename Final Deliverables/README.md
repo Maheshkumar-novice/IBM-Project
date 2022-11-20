@@ -1,5 +1,7 @@
 # Setup Guide
 
+We are live at: http://159.122.178.236:31098/
+
 ## Backend - Local
 
 ### Move to the backend directory
