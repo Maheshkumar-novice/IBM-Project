@@ -32,15 +32,15 @@ def get_all_products_for_a_location(location_id):
     return response.success(status_code=REQUEST_COMPLETED, data=products_for_a_location, message=PRODUCTS_FOR_A_LOCATION)
 
 
-def complete_purchase_order():
+def complete_purchase_order(retailer_id):
     form = PurchaseOrderForm()
 
     if form.validate():
         form_product_name = form.product_name.data
         product_id = Product.query.with_entities(
-            Product.id).filter_by(name=form_product_name).scalar()
+            Product.id).filter_by(name=form_product_name, retailer_id=retailer_id).scalar()
         location_id = Location.query.with_entities(
-            Location.id).filter_by(name=form.location_name.data).scalar()
+            Location.id).filter_by(name=form.location_name.data, retailer_id=retailer_id).scalar()
 
         existing_product_record = Inventory.query.filter_by(
             product_id=product_id, location_id=location_id).scalar()

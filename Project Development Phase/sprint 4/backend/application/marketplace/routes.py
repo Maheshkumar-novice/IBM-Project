@@ -22,7 +22,7 @@ marketplace_blueprint.add_url_rule(rule='/products/<int:location_id>',
                                    endpoint='get_all_products_for_a_location',
                                    methods=['GET'])
 
-marketplace_blueprint.add_url_rule(rule='/order',
+marketplace_blueprint.add_url_rule(rule='/order/<int:retailer_id>',
                                    view_func=complete_purchase_order,
                                    endpoint='complete_purchase_order',
                                    methods=['POST'])
