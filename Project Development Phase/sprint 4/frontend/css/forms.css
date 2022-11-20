@@ -33,7 +33,7 @@
   transition: transform 0.25s ease, background-color 0.25s ease;
 }
 
-.app-submit-btn:hover{
+.app-submit-btn:hover {
   background-color: var(--dark-accent);
   transform: skew(2deg);
 }
@@ -66,7 +66,16 @@ textarea.app-input {
   resize: none;
 }
 
-select{
+select {
   background-color: inherit;
   font: inherit;
+}
+
+select.app-input > option {
+  color: var(--secondary);
+}
+
+select.app-input:invalid,
+select.app-input > option:disabled {
+  color: #666;
 }
