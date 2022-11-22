@@ -1,5 +1,5 @@
-import { constants } from "./constants.js";
-import { alert } from "./utils.js";
+import { constants } from "../../constants.js";
+import { alert } from "../../utils.js";
 
 const loader = document.querySelector("#loader");
 const purchaseForm = document.querySelector("#purchase-form");
@@ -93,7 +93,7 @@ const createFormOptions = (element, data) => {
   const option = element.options[0]
   element.innerHTML = '';
   element.appendChild(option);
-  element.options.selectedIndex = 0
+  element.options.selectedIndex = 0;
   data.map((d) => {
     element.innerHTML +=
       `<option value=${d.name} data-id=${d.id}>${d.name}</option>`
@@ -104,7 +104,6 @@ retailerNameInput.addEventListener('change', () => {
   loader.classList.remove('d-none');
   const selectedOption = retailerNameInput.options[retailerNameInput.selectedIndex];
   getLocationsByRetailer(selectedOption.getAttribute('data-id'));
-  createFormOptions(productInput, '')
 });
 
 
