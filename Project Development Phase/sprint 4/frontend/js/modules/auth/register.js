@@ -25,6 +25,7 @@ const registerAcc = async (api_body) => {
       api_body);
     loader.classList.add("d-none");
     alert(messageBox, data.message, 'success');
+    window.location.href = 'login.html'
   }
   catch (error) {
     console.error("Account registration Error: ", error);

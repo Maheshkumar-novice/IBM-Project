@@ -26,10 +26,20 @@
     </div>
     <div>
       <button type="submit" id="login-btn" class="btn app-submit-btn">Login</button>
-      <p class="text-center">Not registered?
+      <p class="text-center">
         <a href="./register.html">Create an account</a>
+        <span>/</span>
+        <a id='resend-mail-open'>Resend Confirmation mail</a>
       </p>
     </div>
+  </form>
+  <form class="app-form d-none" id="resend-mail-form">
+    <h3 class="form-title">Resend Mail</h3>
+    <input type="email" placeholder="email" id="emai" name="name" class="app-input" required>
+    <button type="submit" class="btn app-submit-btn">send</button>
+    <p class="text-center">
+      <a id="back-to-login">Back to Login</a>
+    </p>
   </form>
   <div class="message-box d-none"></div>
   <div id="loader" class="d-none"></div>
