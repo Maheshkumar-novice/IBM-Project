@@ -1,6 +1,7 @@
 # Setup Guide
 
 We are live at: http://159.122.178.236:31098/
+Demo video link : https://www.loom.com/share/117c36a1fa1344828258e0187eccea95
 
 ## Backend - Local
 
